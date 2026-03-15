@@ -1,7 +1,6 @@
 #include "WiFi.h"
 //https://garretlab.web.fc2.com/arduino/esp32/reference/libraries/HTTPClient/
 #include <HTTPClient.h>
-#include <Arduino_JSON.h>
 #include <ESPmDNS.h>
 
 //WEBSERVER Sample
@@ -11,7 +10,7 @@ WebServer server(80);
 
 // WIFI利用例:https://wiki.seeedstudio.com/ja/xiao_wifi_usage_esp32c6/
 // Replace with your network credentials
-const char* ssid = "sou-F2886Q-tb3H-A";
+const char* ssid = "sou-F2886Q-tb3H-G";
 const char* password = "HdYFCHKd7hfkf";
 
 void initWiFi() {
@@ -28,7 +27,8 @@ void initWiFi() {
 
 // ルートハンドラ
 void handleRoot() {
-  server.send(200, "text/html", "<h1>Hello from ESP32 HTTP Server!</h1>"+WiFi.localIP());
+  Serial.println("handleRoot");
+  server.send(200, "text/html", "<h1>Hello from ESP32 HTTP Server!</h1><button>OK</button>");
 }
 void httpTask(void* pvParameters) {
   for (;;) {
@@ -44,7 +44,7 @@ void setup() {
   initWiFi();
 
     //ローカルドメインサービス http://esp32.local
-  MDNS.begin("esp32");
+  MDNS.begin("http://esp32.local");
 
   // ハンドラ登録
   server.on("/", handleRoot);
@@ -55,6 +55,5 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
 
 }
