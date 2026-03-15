@@ -44,7 +44,7 @@ void setup() {
   initWiFi();
 
     //ローカルドメインサービス http://esp32.local
-  MDNS.begin("http://esp32.local");
+  MDNS.begin("esp32");
 
   // ハンドラ登録
   server.on("/", handleRoot);
