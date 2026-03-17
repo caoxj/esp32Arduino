@@ -81,15 +81,16 @@ void handleRoot() {
 void handleSpeedUp() {
   speed += 16;
   if (speed > 255) {
-    speed = 255;
+    speed = 255; // 上限を255でストップするように変更（0に戻すより操作しやすいはずです）
   }
   Serial.print("Web Command: Speed Up -> ");
   Serial.println(speed);
   server.send(200, "text/plain", String(speed)); 
 
+  // 固定値ではなく変数(speed)を出力する
   analogWrite(D7, speed);
-  analogWrite(D8, speed);
-  analogWrite(D9, speed);
+  analogWrite(D3, speed);
+  analogWrite(D6, speed);
   analogWrite(D10, speed);
 }
 
@@ -97,15 +98,15 @@ void handleSpeedUp() {
 void handleSpeedDown() {
   speed -= 16;
   if (speed < 0) {
-    speed = 0;
+    speed = 0; // 下限を0でストップ
   }
   Serial.print("Web Command: Speed Down -> ");
   Serial.println(speed);
   server.send(200, "text/plain", String(speed)); 
 
   analogWrite(D7, speed);
-  analogWrite(D8, speed);
-  analogWrite(D9, speed);
+  analogWrite(D3, speed);
+  analogWrite(D6, speed);
   analogWrite(D10, speed);
 }
 
@@ -116,8 +117,8 @@ void handleSpeedStop() {
   server.send(200, "text/plain", String(speed));
 
   analogWrite(D7, speed);
-  analogWrite(D8, speed);
-  analogWrite(D9, speed);
+  analogWrite(D3, speed);
+  analogWrite(D6, speed);
   analogWrite(D10, speed);
 }
 
@@ -135,13 +136,13 @@ void setup() {
 
   pinMode(D0, INPUT_PULLUP);
   pinMode(D7, OUTPUT);
-  pinMode(D8, OUTPUT);
-  pinMode(D9, OUTPUT);
+  pinMode(D3, OUTPUT);
+  pinMode(D6, OUTPUT);
   pinMode(D10, OUTPUT);
 
   analogWrite(D7, 0);
-  analogWrite(D8, 0);
-  analogWrite(D9, 0);
+  analogWrite(D3, 0);
+  analogWrite(D6, 0);
   analogWrite(D10, 0);
 
   initWiFi();
@@ -162,4 +163,5 @@ void setup() {
 }
 
 void loop() {
+  // もし物理ボタン（D0）のコードも使いたい場合は、ここに以前のボタン処理を追記してください。
 }
