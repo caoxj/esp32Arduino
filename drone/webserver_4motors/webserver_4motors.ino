@@ -7,8 +7,8 @@
 WebServer server(80);
 
 // 自分のWIFIアクセスポイントのIDとPW
-#define MySsid "Esp32c6-xiao-long";
-#define MyPassword  "12345678";
+#define MySsid "Esp32c6-xiao-long"
+#define MyPassword  "12345678"
 IPAddress MyIp( 192, 168, 0, 1 );         /* ESP32のIPアドレス */
 IPAddress MySubnet( 255, 255, 255, 0 );   /* サブネットマスク */
 
@@ -76,6 +76,7 @@ void initWiFi() {
     digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN)); //LEDの状態をReadをした後にLED_BUILTINにWrite☆
     delay(500); // 0.5秒待機
   }
+}
 
 // アクセスポイントとして
 void initWiFiAP() {
@@ -165,8 +166,8 @@ void setup() {
   analogWrite(D8, 0);
   analogWrite(D4, 0);
 
-  initWiFi();
-  //initWiFiAP();
+  //initWiFi();
+  initWiFiAP();
 
   if (MDNS.begin("esp32")) {
     Serial.println("MDNS responder started. You can access via http://esp32.local");
